@@ -3,8 +3,15 @@ import { WebSocketService } from './web-socket.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-const HEADER_COLOR = '#3D5AFE';
-interface Conversa {
+/**
+ * Cor padrão do Eslequerson
+ */
+const HEADER_COLOR = '#4b154c';
+
+/**
+ * Interface de conversa
+ */
+export interface Conversation {
   name: string;
   message: string;
   color: string;
@@ -14,76 +21,122 @@ interface Conversa {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  public conversas: Conversa[] = [];
+  /**
+   * Lista de conversas
+   */
+  public conversations: Conversation[] = [];
+
+  /**
+   * Nome do usuário
+   */
   public name = '';
-  public mensagem = '';
-  public cor = '';
-  public foiEnviado = false;
+
+  /**
+   * Cor do usuário
+   */
+  public color = '';
+
+  /**
+   * Mensagem escrita pelo usuário
+   */
+  public message = '';
+
+  /**
+   * Se o usuário já enviou alguma mensagem
+   */
+  public hasSended = false;
 
   /**
    * Controla as desincrições
    */
   private destroy$: Subject<void> = new Subject();
 
+  /**
+   * Construtor
+   *
+   * @param { WebSocketService } ws - Websocket service
+   */
   constructor(private ws: WebSocketService) {}
 
+  /**
+   * Inicializado
+   */
   ngOnInit() {
     this.getColor();
     this.getPreviousMessages();
     this.listenToNewMessages();
   }
 
-  public getColor(): void {
-    const color = `#${Math.random().toString(16).slice(2, 8).toUpperCase()}`;
-    if (color !== HEADER_COLOR) {
-      this.cor = color;
-    } else {
-      this.cor = '#FFF';
-    }
-  }
-
-  private listenToNewMessages(): void {
-    this.ws
-      .listen('newMessage')
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((conversa: Conversa) => {
-        this.conversas.push(conversa);
-      });
-  }
-
-  private getPreviousMessages(): void {
-    this.ws
-      .listen('previousMessages')
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((conversas: Conversa[]) => {
-        this.conversas = conversas;
-      });
-  }
-
+  /**
+   * Destrutor
+   */
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  public enviar(): void {
+  /**
+   * Define um valor hexadecimal randômico
+   */
+  public getColor(): void {
+    const color = `#${Math.random()
+      .toString(16)
+      .slice(2, 8)
+      .toUpperCase()}`;
+    if (color !== HEADER_COLOR) {
+      this.color = color;
+    } else {
+      this.color = '#FFF';
+    }
+  }
 
-    const regex = /[0-9]{2}:[0-9]{2}/;
+  /**
+   * Ouve por novas mensagens
+   */
+  private listenToNewMessages(): void {
+    this.ws
+      .listen('newMessage')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((conversa: Conversation) => {
+        this.conversations.push(conversa);
+      });
+  }
 
-    const now = new Date();
+  /**
+   * Recebe as mensagens anteriores
+   */
+  private getPreviousMessages(): void {
+    this.ws
+      .listen('previousMessages')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((conversas: Conversation[]) => {
+        this.conversations = conversas;
+      });
+  }
+
+  /**
+   * Envia a mensagem para o servidor
+   */
+  public send(): void {
+    const regex: RegExp = /[0-9]{2}:[0-9]{2}/;
+    const now: Date = new Date();
     const [hour] = regex.exec(now.toISOString().split('T')[1]);
 
-    const conversa = {
+    const conversa: Conversation = {
       name: this.name,
-      message: this.mensagem,
-      color: this.cor,
-      hour
+      message: this.message,
+      color: this.color,
+      hour,
     };
-    this.foiEnviado = true;
-    this.mensagem = '';
-    this.conversas.push(conversa);
-    this.ws.emit('receivedMessage', conversa);
+
+    if (this.message) {
+      this.hasSended = true;
+      this.message = '';
+      this.conversations.push(conversa);
+      this.ws.emit('receivedMessage', conversa);
+    }
   }
 }

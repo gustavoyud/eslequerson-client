@@ -1,0 +1,63 @@
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.messages-container {
+
+  .conversation {
+    animation: up 0.3s;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: all 0.2s;
+
+    h6,
+    h5 {
+      margin: 0;
+    }
+
+    h5 {
+      color: rgb(29, 28, 29);
+      font-size: 15px;
+      font-weight: 600;
+    }
+    h6 {
+      color: rgb(29, 28, 29);
+      font-size: 15px;
+      font-weight: 400;
+    }
+
+    .hour {
+      font-size: 12px;
+      color: #616061;
+      margin: 0px 0px 0px 10px;
+    }
+
+    &:hover {
+      background: #eeeeee;
+    }
+  }
+}
+
+.image {
+  height: 32px;
+  width: 32px;
+  border-radius: 4px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 9px 0px 0px;
+  text-transform: capitalize;
+}
+
+@keyframes up {
+  from {
+    transform: translateX(-20px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}

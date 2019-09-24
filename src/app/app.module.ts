@@ -6,13 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
+import { ConversationsComponent } from './conversations/conversations.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
-    HeaderComponent
+    HeaderComponent,
+    ConversationsComponent
   ],
   imports: [
     BrowserModule,
