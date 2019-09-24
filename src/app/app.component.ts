@@ -18,7 +18,7 @@ interface Conversa {
 })
 export class AppComponent implements OnInit, OnDestroy {
   public conversas: Conversa[] = [];
-  public nome = '';
+  public name = '';
   public mensagem = '';
   public cor = '';
   public foiEnviado = false;
@@ -76,7 +76,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const [hour] = regex.exec(now.toISOString().split('T')[1]);
 
     const conversa = {
-      name: this.nome,
+      name: this.name,
       message: this.mensagem,
       color: this.cor,
       hour

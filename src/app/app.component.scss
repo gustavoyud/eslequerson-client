@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css?family=Mansalva&display=swap");
 
 .flex {
   display: flex;
@@ -10,71 +9,6 @@
   justify-content: flex-start;
   width: 100vw;
 
-  .sidebar {
-    width: 220px;
-    background: #4b154c;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    .name {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-
-      .image {
-        width: 120px;
-        height: 120px;
-        border-radius: 4px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 60px;
-        color: #fff;
-        text-transform: capitalize;
-      }
-
-      input {
-        color: #ecb22e;
-        border: none;
-        background: transparent;
-        outline: none !important;
-        margin: 20px 0px;
-        text-align: center;
-        font-family: "Mansalva", cursive;
-        font-size: 22px;
-
-        &::placeholder {
-          color: #ecb22e;
-        }
-      }
-    }
-
-    h2 {
-      color: #fff;
-      font-family: "Mansalva", cursive;
-      b {
-        color: #ecb22e;
-      }
-    }
-
-    .preview {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      h6 {
-        color: #fff;
-      }
-
-      .color-preview {
-        height: 24px;
-        width: 24px;
-        margin: 0px 0px 0px 10px;
-        cursor: pointer;
-      }
-    }
-  }
   .container {
     display: flex;
     flex-direction: column;
