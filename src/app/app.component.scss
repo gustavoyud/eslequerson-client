@@ -1,0 +1,209 @@
+@import url("https://fonts.googleapis.com/css?family=Mansalva&display=swap");
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.display {
+  display: flex;
+  justify-content: flex-start;
+  width: 100vw;
+
+  .sidebar {
+    width: 220px;
+    background: #4b154c;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .name {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      .image {
+        width: 120px;
+        height: 120px;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 60px;
+        color: #fff;
+        text-transform: capitalize;
+      }
+
+      input {
+        color: #ecb22e;
+        border: none;
+        background: transparent;
+        outline: none !important;
+        margin: 20px 0px;
+        text-align: center;
+        font-family: "Mansalva", cursive;
+        font-size: 22px;
+
+        &::placeholder {
+          color: #ecb22e;
+        }
+      }
+    }
+
+    h2 {
+      color: #fff;
+      font-family: "Mansalva", cursive;
+      b {
+        color: #ecb22e;
+      }
+    }
+
+    .preview {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h6 {
+        color: #fff;
+      }
+
+      .color-preview {
+        height: 24px;
+        width: 24px;
+        margin: 0px 0px 0px 10px;
+        cursor: pointer;
+      }
+    }
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    background: #fafafa;
+    height: 100vh;
+    flex-grow: 1;
+
+    .header {
+      box-shadow: 0px 2px 2px 0px #e0e0e0;
+      padding: 9px 8px 9px 20px;
+      display: flex;
+      flex-direction: column;
+
+      h4 {
+        font-size: 18px;
+        color: #1d1c1d;
+        margin: 0;
+      }
+
+      h6 {
+        margin: 0;
+        font-size: 13px;
+        color: #616061;
+        font-weight: 400;
+        padding: 0px;
+      }
+    }
+
+    .message {
+      padding: 15px;
+      border-radius: 4px;
+      border: none;
+      border: 1px solid #dfe1e5;
+      outline: none !important;
+      margin: 10px 20px;
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+    }
+
+    .image {
+      height: 32px;
+      width: 32px;
+      border-radius: 4px;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0px 9px 0px 0px;
+      text-transform: capitalize;
+    }
+
+    .messages-container {
+      height: 87%;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+        z-index: 2000;
+        background: transparent;
+        visibility: hidden;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-track-piece {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        position: absolute;
+        background: transparent;
+        border-radius: 4px;
+        width: 8px;
+      }
+
+      &:hover {
+        &::-webkit-scrollbar-thumb {
+          background: #616061;
+        }
+      }
+
+      .conversation {
+        animation: up 0.3s;
+        padding: 10px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        transition: all 0.2s;
+
+        h6,
+        h5 {
+          margin: 0;
+        }
+
+        h5 {
+          color: rgb(29, 28, 29);
+          font-size: 15px;
+          font-weight: 600;
+        }
+        h6 {
+          color: rgb(29, 28, 29);
+          font-size: 15px;
+          font-weight: 400;
+        }
+
+        .hour {
+          font-size: 12px;
+          color: #616061;
+          margin: 0px 0px 0px 10px;
+        }
+
+        &:hover {
+          background: #eeeeee;
+        }
+      }
+    }
+  }
+}
+
+@keyframes up {
+  from {
+    transform: translateX(-20px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}

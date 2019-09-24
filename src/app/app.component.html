@@ -1,21 +1,72 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="display">
+  <div class="sidebar">
+    <h2><b>#</b> Eslequerson</h2>
 
-<router-outlet></router-outlet>
+    <div class="name">
+      <div *ngIf="nome" [class]="'image'" [style.background]="cor">
+        {{ nome[0] }}
+      </div>
+      <input
+        [type]="'text'"
+        [(ngModel)]="nome"
+        [placeholder]="'Informe seu nome!'"
+        [disabled]="foiEnviado"
+      />
+    </div>
+
+    <div *ngIf="nome && !foiEnviado" class="preview">
+      <h6>
+        Clique para atualizar a cor
+      </h6>
+      <div
+        class="color-preview"
+        [style.background]="cor"
+        (click)="getColor()"
+      ></div>
+    </div>
+  </div>
+
+  <div [class]="'container'">
+    <div class="header">
+      <h4>
+        #chatson
+      </h4>
+      <h6>
+        Esse é um canal para conversar sobre as coisas
+      </h6>
+    </div>
+
+    <div class="messages-container">
+      <div *ngFor="let conversa of conversas" class="conversation">
+        <div [class]="'image'" [style.background]="conversa.color">
+          {{ conversa.name[0] }}
+        </div>
+
+        <div>
+
+          <div class="flex">
+            <h5>
+              {{ conversa.name }}sson
+            </h5>
+            <h6 class="hour">
+              {{ conversa.hour }}
+            </h6>
+          </div>
+
+          <h6>
+            {{ conversa.message }}
+          </h6>
+        </div>
+      </div>
+    </div>
+
+    <input
+      type="text"
+      class="message"
+      [(ngModel)]="mensagem"
+      placeholder="Sua mensagem aqui..."
+      [disabled]="!nome"
+      (keyup.enter)="enviar()"
+    />
+  </div>
+</div>
