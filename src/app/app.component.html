@@ -9,14 +9,12 @@
   </app-sidebar>
 
   <div [class]="'container'">
-    <div class="header">
-      <h4>
-        #chatson
-      </h4>
-      <h6>
-        Esse é um canal para conversar sobre as coisas
-      </h6>
-    </div>
+
+    <app-header
+      [title]="'chaterson'"
+      [subtitle]="'Esse é um canal para conversar sobre as coisas'"
+    >
+    </app-header>
 
     <div class="messages-container">
       <div *ngFor="let conversa of conversas" class="conversation">
