@@ -20,12 +20,14 @@
     <app-conversations [conversations]="conversations">
     </app-conversations>
 
+    <h4 *ngIf="(typing.asObservable() | async)">
+      {{ (typing.asObservable() | async) ? (typing.asObservable() | async) : 'Não está mais! 😀' }}
+    </h4>
     <input
       type="text"
       class="message"
-      [(ngModel)]="message"
+      [formControl]="message"
       placeholder="Sua mensagem aqui..."
-      [disabled]="!name"
       (keyup.enter)="send()"
     />
   </div>

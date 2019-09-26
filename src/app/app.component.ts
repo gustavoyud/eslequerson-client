@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WebSocketService } from './web-socket.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { takeUntil, throttleTime, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 /**
  * Cor padrão do Eslequerson
@@ -42,12 +43,17 @@ export class AppComponent implements OnInit, OnDestroy {
   /**
    * Mensagem escrita pelo usuário
    */
-  public message = '';
+  public message = new FormControl('');
 
   /**
    * Se o usuário já enviou alguma mensagem
    */
   public hasSended = false;
+
+  /**
+   * Controla os eventos de escrita
+   */
+  public typing = new BehaviorSubject<string>('');
 
   /**
    * Controla as desincrições
@@ -68,6 +74,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.getColor();
     this.getPreviousMessages();
     this.listenToNewMessages();
+    this.typingHandler();
   }
 
   /**
@@ -76,6 +83,58 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  /**
+   * Eventos para mostrar quem está digitando no momento
+   */
+  private typingHandler(): void {
+    this.typingEventsEmit();
+    this.typingEventsListener();
+  }
+
+  /**
+   * Dispara os eventos de digitação
+   */
+  private typingEventsEmit(): void {
+    this.message.valueChanges
+      .pipe(
+        throttleTime(500),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        this.ws.emit('typing', { author: this.name });
+      });
+    this.message.valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        this.ws.emit('stop', {});
+      });
+  }
+
+  /**
+   * Ouve os eventos de digitação
+   */
+  private typingEventsListener(): void {
+    this.ws
+      .listen('isTyping')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(({ author }) => {
+        if (author !== this.name) {
+          this.typing.next(`${author} está digitando...`);
+        }
+      });
+    this.ws
+      .listen('stopTyping')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.typing.next('');
+      });
   }
 
   /**
@@ -127,16 +186,17 @@ export class AppComponent implements OnInit, OnDestroy {
 
     const conversa: Conversation = {
       name: this.name,
-      message: this.message,
+      message: this.message.value,
       color: this.color,
       hour,
     };
 
-    if (this.message) {
+    if (this.message.value) {
       this.hasSended = true;
-      this.message = '';
+      this.message.setValue('');
       this.conversations.push(conversa);
       this.ws.emit('receivedMessage', conversa);
+      this.ws.emit('stop', {});
     }
   }
 }

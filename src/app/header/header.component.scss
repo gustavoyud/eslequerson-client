@@ -1,20 +1,22 @@
+@import 'src/shared/styles/colors.scss';
+
 .header {
-  box-shadow: 0px 2px 2px 0px #e0e0e0;
-  padding: 9px 8px 9px 20px;
-  display: flex;
-  flex-direction: column;
+  box-shadow        : 0px 2px 2px 0px $header-divisor;
+  padding           : 9px 8px 9px 20px;
+  display           : flex;
+  flex-direction    : column;
 
   h4 {
-    font-size: 18px;
-    color: #1d1c1d;
-    margin: 0;
+    font-size       : 18px;
+    color           : $primary-text;
+    margin          : 0;
   }
 
   h6 {
-    margin: 0;
-    font-size: 13px;
-    color: #616061;
-    font-weight: 400;
-    padding: 0px;
+    margin          : 0;
+    font-size       : 13px;
+    color           : $secondary-text;
+    font-weight     : 400;
+    padding         : 0px;
   }
 }
