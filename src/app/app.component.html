@@ -20,6 +20,22 @@
     <app-conversations [conversations]="conversations">
     </app-conversations>
 
+    <div
+      *ngFor="let onLine of (visibleList.asObservable() | async); index as i"
+      class="online"
+      [class.first]="i === 0"
+      [style.bottom.px]="54 * i"
+      (click)="remove(i)"
+    >
+      <h5>
+        {{ onLine.author }}
+      </h5>
+
+      <h6>
+        {{ onLine.text }}
+      </h6>
+    </div>
+
     <h4 *ngIf="(typing.asObservable() | async)">
       {{ (typing.asObservable() | async) ? (typing.asObservable() | async) : 'Não está mais! 😀' }}
     </h4>

@@ -22,25 +22,21 @@
       [placeholder]="'Informe seu nome!'"
       [disabled]="hasSended"
     />
+
+    <select
+      *ngIf="name"
+      [ngModel]="status"
+      (ngModelChange)="changeStatus($event)"
+    >
+      <option value="off">
+        Offline
+      </option>
+      <option value="on">
+        Online
+      </option>
+    </select>
   </div>
   <!-- ! Seleção do nome do usuário e imagem -->
-
-  <!-- Troca de cor -->
-  <div
-    *ngIf="name && !hasSended"
-    class="preview"
-  >
-    <h6>
-      Clique para atualizar a cor
-    </h6>
-    <div
-      class="color-preview"
-      [style.background]="color"
-      (click)="suffleColor.emit()"
-    >
-    </div>
-  </div>
-  <!-- ! Troca de cor -->
 
 </div>
 <!-- ! Sidebar -->

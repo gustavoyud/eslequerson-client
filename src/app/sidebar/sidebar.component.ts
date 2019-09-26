@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { WebSocketService } from '../web-socket.service';
 
 /**
  * Componente da sidebar contendo 'logo' e seleção do nome
@@ -35,13 +36,26 @@ export class SidebarComponent implements OnInit {
    */
   @Output() nameHasChanged = new EventEmitter();
 
+  public status: 'on' | 'off' = 'off';
+
   /**
    * Construtor
+   *
+   * @param { WebSocketService } ws - Serviço de web sockets
    */
-  constructor() {}
+  constructor(private ws: WebSocketService) {}
 
   /**
    * Inicializador
    */
   ngOnInit() {}
+
+  /**
+   * Atualiza o status do usuário
+   *
+   * @param { any } visible - Se é visível ou não
+   */
+  public changeStatus(visible: any): void {
+    this.ws.emit('statusChanged', { author: this.name, visible });
+  }
 }
