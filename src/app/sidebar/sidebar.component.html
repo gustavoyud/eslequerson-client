@@ -1,0 +1,46 @@
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2><b>#</b> Eslequerson</h2>
+
+  <!-- Seleção do nome do usuário e imagem -->
+  <div class="name">
+
+    <!-- Imagem -->
+    <div
+      *ngIf="name"
+      [class]="'image'"
+      [style.background]="color"
+    >
+      {{ name[0] }}
+    </div>
+    <!-- ! Imagem -->
+
+    <input
+      [type]="'text'"
+      [(ngModel)]="name"
+      (ngModelChange)="nameHasChanged.emit($event)"
+      [placeholder]="'Informe seu nome!'"
+      [disabled]="hasSended"
+    />
+  </div>
+  <!-- ! Seleção do nome do usuário e imagem -->
+
+  <!-- Troca de cor -->
+  <div
+    *ngIf="name && !hasSended"
+    class="preview"
+  >
+    <h6>
+      Clique para atualizar a cor
+    </h6>
+    <div
+      class="color-preview"
+      [style.background]="color"
+      (click)="suffleColor.emit()"
+    >
+    </div>
+  </div>
+  <!-- ! Troca de cor -->
+
+</div>
+<!-- ! Sidebar -->

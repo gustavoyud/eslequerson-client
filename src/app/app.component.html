@@ -1,72 +1,34 @@
 <div class="display">
-  <div class="sidebar">
-    <h2><b>#</b> Eslequerson</h2>
 
-    <div class="name">
-      <div *ngIf="nome" [class]="'image'" [style.background]="cor">
-        {{ nome[0] }}
-      </div>
-      <input
-        [type]="'text'"
-        [(ngModel)]="nome"
-        [placeholder]="'Informe seu nome!'"
-        [disabled]="foiEnviado"
-      />
-    </div>
-
-    <div *ngIf="nome && !foiEnviado" class="preview">
-      <h6>
-        Clique para atualizar a cor
-      </h6>
-      <div
-        class="color-preview"
-        [style.background]="cor"
-        (click)="getColor()"
-      ></div>
-    </div>
-  </div>
+  <app-sidebar
+    [name]="name"
+    [color]="color"
+    [hasSended]="hasSended"
+    (suffleColor)="getColor()"
+    (nameHasChanged)="name = $event"
+  >
+  </app-sidebar>
 
   <div [class]="'container'">
-    <div class="header">
-      <h4>
-        #chatson
-      </h4>
-      <h6>
-        Esse é um canal para conversar sobre as coisas
-      </h6>
-    </div>
 
-    <div class="messages-container">
-      <div *ngFor="let conversa of conversas" class="conversation">
-        <div [class]="'image'" [style.background]="conversa.color">
-          {{ conversa.name[0] }}
-        </div>
+    <app-header
+      [title]="'chaterson'"
+      [subtitle]="'Esse é um canal para conversar sobre as coisas'"
+    >
+    </app-header>
 
-        <div>
+    <app-conversations [conversations]="conversations">
+    </app-conversations>
 
-          <div class="flex">
-            <h5>
-              {{ conversa.name }}sson
-            </h5>
-            <h6 class="hour">
-              {{ conversa.hour }}
-            </h6>
-          </div>
-
-          <h6>
-            {{ conversa.message }}
-          </h6>
-        </div>
-      </div>
-    </div>
-
+    <h4 *ngIf="(typing.asObservable() | async)">
+      {{ (typing.asObservable() | async) ? (typing.asObservable() | async) : 'Não está mais! 😀' }}
+    </h4>
     <input
       type="text"
       class="message"
-      [(ngModel)]="mensagem"
+      [formControl]="message"
       placeholder="Sua mensagem aqui..."
-      [disabled]="!nome"
-      (keyup.enter)="enviar()"
+      (keyup.enter)="send()"
     />
   </div>
 </div>
