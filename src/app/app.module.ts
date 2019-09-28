@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { ConversationsComponent } from './conversations/conversations.component';
+import { UserConnectedComponent } from './user-connected/user-connected.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ConversationsComponent } from './conversations/conversations.component'
     AppComponent,
     SidebarComponent,
     HeaderComponent,
-    ConversationsComponent
+    ConversationsComponent,
+    UserConnectedComponent
   ],
   imports: [
     BrowserModule,

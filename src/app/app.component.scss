@@ -64,46 +64,5 @@
       }
     }
 
-    .online {
-      position: absolute;
-      bottom: 10px;
-      background: #4b154c;
-      padding: 10px 20px;
-      right: 10px;
-      cursor: pointer;
-      border-radius: 4px;
-
-      &:hover {
-        background: #3F1240;
-      }
-
-      &:not(.first) {
-        animation: online .2s;
-      }
-
-      h5 {
-        margin: 0;
-        color: #ecb22e;
-      }
-
-      h6 {
-        margin: 0;
-        color: #fff;
-        font-weight: 400;
-      }
-
-      @keyframes online {
-        from {
-          opacity: 0;
-          transform       : translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform       : translateY(0px);
-        }
-      }
-
-    }
-
   }
 }
