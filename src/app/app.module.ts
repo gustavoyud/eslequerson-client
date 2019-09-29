@@ -8,7 +8,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { ConversationsComponent } from './conversations/conversations.component';
 import { UserConnectedComponent } from './user-connected/user-connected.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -16,16 +17,18 @@ import { UserConnectedComponent } from './user-connected/user-connected.componen
     SidebarComponent,
     HeaderComponent,
     ConversationsComponent,
-    UserConnectedComponent
+    UserConnectedComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSelectModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

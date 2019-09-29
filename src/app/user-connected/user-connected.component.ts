@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { WebSocketService } from '../web-socket.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user-connected',
@@ -9,14 +10,12 @@ import { WebSocketService } from '../web-socket.service';
 })
 export class UserConnectedComponent implements OnInit {
 
-  @Input() name: string;
-
   /**
    * Controla a lista de usuários que ficaram ativos recentemente
    */
   public visibleList = new BehaviorSubject<any[]>([]);
 
-  constructor(private ws: WebSocketService) {}
+  constructor(private ws: WebSocketService, private user: UserService) {}
 
   ngOnInit() {
     this.listenToStatusChanged();
@@ -27,7 +26,7 @@ export class UserConnectedComponent implements OnInit {
    */
   private listenToStatusChanged() {
     this.ws.listen('newStatus').subscribe(({ author, visible }) => {
-      if (author !== this.name && visible === 'on') {
+      if (author !== this.user.getUser().name && visible === 'on') {
         const object = {
           author,
           text: 'Acabou de entrar!',

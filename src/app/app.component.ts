@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil, throttleTime } from 'rxjs/operators';
 import { WebSocketService } from './web-socket.service';
+import { UserService } from './services/user.service';
 
 /**
  * Cor padrão do Eslequerson
@@ -31,16 +32,6 @@ export class AppComponent implements OnInit, OnDestroy {
   public conversations: Conversation[] = [];
 
   /**
-   * Nome do usuário
-   */
-  public name = '';
-
-  /**
-   * Cor do usuário
-   */
-  public color = '';
-
-  /**
    * Mensagem escrita pelo usuário
    */
   public message = new FormControl('');
@@ -65,13 +56,13 @@ export class AppComponent implements OnInit, OnDestroy {
    *
    * @param { WebSocketService } ws - Websocket service
    */
-  constructor(private ws: WebSocketService) {}
+  constructor(private ws: WebSocketService, public user: UserService) {}
 
   /**
    * Inicializado
    */
   ngOnInit() {
-    this.getColor();
+    // this.getColor();
     this.getPreviousMessages();
     this.listenToNewMessages();
     this.typingHandler();
@@ -104,7 +95,7 @@ export class AppComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
-        this.ws.emit('typing', { author: this.name });
+        this.ws.emit('typing', { author: this.user.getUser().name });
       });
     this.message.valueChanges
       .pipe(
@@ -125,7 +116,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .listen('isTyping')
       .pipe(takeUntil(this.destroy$))
       .subscribe(({ author }) => {
-        if (author !== this.name) {
+        if (author !==  this.user.getUser().name) {
           this.typing.next(`${author} está digitando...`);
         }
       });
@@ -140,17 +131,17 @@ export class AppComponent implements OnInit, OnDestroy {
   /**
    * Define um valor hexadecimal randômico
    */
-  public getColor(): void {
-    const color = `#${Math.random()
-      .toString(16)
-      .slice(2, 8)
-      .toUpperCase()}`;
-    if (color !== HEADER_COLOR) {
-      this.color = color;
-    } else {
-      this.color = '#FFF';
-    }
-  }
+  // public getColor(): void {
+  //   const color = `#${Math.random()
+  //     .toString(16)
+  //     .slice(2, 8)
+  //     .toUpperCase()}`;
+  //   if (color !== HEADER_COLOR) {
+  //     this.color = color;
+  //   } else {
+  //     this.color = '#FFF';
+  //   }
+  // }
 
   /**
    * Ouve por novas mensagens
@@ -185,9 +176,9 @@ export class AppComponent implements OnInit, OnDestroy {
     const [hour] = regex.exec(now.toISOString().split('T')[1]);
 
     const conversa: Conversation = {
-      name: this.name,
+      name:  this.user.getUser().name,
       message: this.message.value,
-      color: this.color,
+      color:  this.user.getUser().color,
       hour,
     };
 

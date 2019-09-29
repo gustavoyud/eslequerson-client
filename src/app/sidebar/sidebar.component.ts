@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { WebSocketService } from '../web-socket.service';
+import { UserService } from '../services/user.service';
 
 /**
  * Componente da sidebar contendo 'logo' e seleção do nome
@@ -12,16 +13,6 @@ import { WebSocketService } from '../web-socket.service';
 export class SidebarComponent implements OnInit {
 
   /**
-   * Nome do usuário
-   */
-  @Input() name = '';
-
-  /**
-   * Cor do Avatar
-   */
-  @Input() color = '';
-
-  /**
    * Se o usuário já enviou alguma mensagem
    */
   @Input() hasSended = false;
@@ -31,11 +22,6 @@ export class SidebarComponent implements OnInit {
    */
   @Output() suffleColor = new EventEmitter();
 
-  /**
-   * Emite o método pra atualizar o nome
-   */
-  @Output() nameHasChanged = new EventEmitter();
-
   public status: 'on' | 'off' = 'off';
 
   /**
@@ -43,7 +29,7 @@ export class SidebarComponent implements OnInit {
    *
    * @param { WebSocketService } ws - Serviço de web sockets
    */
-  constructor(private ws: WebSocketService) {}
+  constructor(private ws: WebSocketService, public user: UserService) {}
 
   /**
    * Inicializador
@@ -56,6 +42,6 @@ export class SidebarComponent implements OnInit {
    * @param { any } visible - Se é visível ou não
    */
   public changeStatus(visible: any): void {
-    this.ws.emit('statusChanged', { author: this.name, visible });
+    this.ws.emit('statusChanged', { author: this.user.getUser().name, visible });
   }
 }

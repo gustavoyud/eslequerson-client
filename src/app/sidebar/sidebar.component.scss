@@ -26,20 +26,14 @@
       box-shadow: 0px 2px 7px 1px #7E2480;
     }
 
-    input {
+    h3 {
       color: #ecb22e;
-      border: none;
-      background: transparent;
-      outline: none !important;
       margin: 20px 0px;
       text-align: center;
       font-family: "Mansalva", cursive;
       font-size: 22px;
-
-      &::placeholder {
-        color: #ecb22e;
-      }
     }
+
   }
 
   h2 {

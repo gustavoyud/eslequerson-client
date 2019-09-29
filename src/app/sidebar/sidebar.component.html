@@ -7,24 +7,20 @@
 
     <!-- Imagem -->
     <div
-      *ngIf="name"
+      *ngIf="(user.userHasChanged() | async)?.name"
       [class]="'image'"
-      [style.background]="color"
+      [style.background]="(user.userHasChanged() | async)?.color"
     >
-      {{ name[0] }}
+      {{ (user.userHasChanged() | async)?.name[0] }}
     </div>
     <!-- ! Imagem -->
 
-    <input
-      [type]="'text'"
-      [(ngModel)]="name"
-      (ngModelChange)="nameHasChanged.emit($event)"
-      [placeholder]="'Informe seu nome!'"
-      [disabled]="hasSended"
-    />
+    <h3>
+      {{ (user.userHasChanged() | async)?.name }}
+    </h3>
 
     <select
-      *ngIf="name"
+      *ngIf="(user.userHasChanged() | async)?.name"
       [ngModel]="status"
       (ngModelChange)="changeStatus($event)"
     >

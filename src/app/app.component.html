@@ -1,12 +1,11 @@
-<div class="display">
 
-  <app-sidebar
-    [name]="name"
-    [color]="color"
-    [hasSended]="hasSended"
-    (suffleColor)="getColor()"
-    (nameHasChanged)="name = $event"
-  >
+<input type="text" placeholder="Insira seu nome..."/>
+
+<div
+  *ngIf="(user.userHasChanged() | async).name"
+  class="display">
+
+  <app-sidebar [hasSended]="hasSended">
   </app-sidebar>
 
   <div [class]="'container'">
@@ -20,7 +19,7 @@
     <app-conversations [conversations]="conversations">
     </app-conversations>
 
-    <app-user-connected [name]="name"></app-user-connected>
+    <app-user-connected></app-user-connected>
 
     <h4 *ngIf="(typing.asObservable() | async)">
       {{ (typing.asObservable() | async) ? (typing.asObservable() | async) : 'Não está mais! 😀' }}
