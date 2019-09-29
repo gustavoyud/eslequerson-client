@@ -5,10 +5,6 @@ import { debounceTime, distinctUntilChanged, takeUntil, throttleTime } from 'rxj
 import { WebSocketService } from './web-socket.service';
 import { UserService } from './services/user.service';
 
-/**
- * Cor padrão do Eslequerson
- */
-const HEADER_COLOR = '#4b154c';
 
 /**
  * Interface de conversa
@@ -62,7 +58,6 @@ export class AppComponent implements OnInit, OnDestroy {
    * Inicializado
    */
   ngOnInit() {
-    // this.getColor();
     this.getPreviousMessages();
     this.listenToNewMessages();
     this.typingHandler();
@@ -127,21 +122,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.typing.next('');
       });
   }
-
-  /**
-   * Define um valor hexadecimal randômico
-   */
-  // public getColor(): void {
-  //   const color = `#${Math.random()
-  //     .toString(16)
-  //     .slice(2, 8)
-  //     .toUpperCase()}`;
-  //   if (color !== HEADER_COLOR) {
-  //     this.color = color;
-  //   } else {
-  //     this.color = '#FFF';
-  //   }
-  // }
 
   /**
    * Ouve por novas mensagens

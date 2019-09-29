@@ -22,6 +22,8 @@ export class SidebarComponent implements OnInit {
    */
   @Output() suffleColor = new EventEmitter();
 
+  public displayConfig = false;
+
   public status: 'on' | 'off' = 'off';
 
   /**

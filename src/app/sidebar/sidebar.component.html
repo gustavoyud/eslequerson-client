@@ -1,36 +1,46 @@
 <!-- Sidebar -->
 <div class="sidebar">
-  <h2><b>#</b> Eslequerson</h2>
+
+  <div class="header">
+    <img src="assets/logo.svg"/>
+    <h2>Eslequerson</h2>
+  </div>
+
 
   <!-- Seleção do nome do usuário e imagem -->
-  <div class="name">
+  <div class="name" [class.opened]="displayConfig">
 
-    <!-- Imagem -->
-    <div
-      *ngIf="(user.userHasChanged() | async)?.name"
-      [class]="'image'"
-      [style.background]="(user.userHasChanged() | async)?.color"
-    >
-      {{ (user.userHasChanged() | async)?.name[0] }}
+
+    <div class="flex-start" (click)="displayConfig = !displayConfig">
+      <!-- Imagem -->
+      <div
+        *ngIf="(user.userHasChanged() | async)?.name"
+        [class]="'image'"
+        [style.background]="(user.userHasChanged() | async)?.color"
+      >
+        {{ (user.userHasChanged() | async)?.name[0] }}
+      </div>
+      <!-- ! Imagem -->
+
+      <h3>
+        {{ (user.userHasChanged() | async)?.name }}
+      </h3>
     </div>
-    <!-- ! Imagem -->
 
-    <h3>
-      {{ (user.userHasChanged() | async)?.name }}
-    </h3>
-
-    <select
-      *ngIf="(user.userHasChanged() | async)?.name"
-      [ngModel]="status"
-      (ngModelChange)="changeStatus($event)"
-    >
-      <option value="off">
-        Offline
-      </option>
-      <option value="on">
-        Online
-      </option>
-    </select>
+    <mat-form-field *ngIf="displayConfig">
+      <mat-label>Status</mat-label>
+      <mat-select
+        [ngModel]="status"
+        (ngModelChange)="changeStatus($event)"
+      >
+        <mat-option value="off">
+          Offline
+        </mat-option>
+        <mat-option value="on">
+          Online
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
   <!-- ! Seleção do nome do usuário e imagem -->
 

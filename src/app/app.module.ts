@@ -10,6 +10,9 @@ import { ConversationsComponent } from './conversations/conversations.component'
 import { UserConnectedComponent } from './user-connected/user-connected.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
+import { NameGetterComponent } from './name-getter/name-getter.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
     HeaderComponent,
     ConversationsComponent,
     UserConnectedComponent,
+    NameGetterComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +31,8 @@ import { MatSelectModule } from '@angular/material/select';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatSelectModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent],

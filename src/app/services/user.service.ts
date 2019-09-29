@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-interface User {
+export interface User {
   name?: string;
   color?: string;
 }
