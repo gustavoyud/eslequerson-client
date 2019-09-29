@@ -22,6 +22,8 @@ export class SidebarComponent implements OnInit {
    */
   @Output() suffleColor = new EventEmitter();
 
+  public statuName = '';
+
   public displayConfig = false;
 
   public status: 'on' | 'off' = 'off';
@@ -44,6 +46,6 @@ export class SidebarComponent implements OnInit {
    * @param { any } visible - Se é visível ou não
    */
   public changeStatus(visible: any): void {
-    this.ws.emit('statusChanged', { author: this.user.getUser().name, visible });
+    this.ws.emit('statusChanged', { author: this.statuName, visible });
   }
 }
