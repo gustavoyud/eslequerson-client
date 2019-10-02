@@ -40,6 +40,29 @@
       background    : $conversation-hover;
     }
   }
+
+  .attention {
+    @extend .conversation;
+    background      : #4b154c;
+
+    .image {
+      background    : #df1d5a!important;
+    }
+
+    h5, .hour {
+      color         : #fff;
+    }
+
+    h6 {
+      color         : #ecb22e;
+      font-weight   : 600;
+      text-transform: uppercase;
+    }
+
+    &:hover {
+      background    : #3F1240;
+    }
+  }
 }
 
 .image {

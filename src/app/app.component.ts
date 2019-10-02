@@ -5,7 +5,6 @@ import { debounceTime, distinctUntilChanged, takeUntil, throttleTime } from 'rxj
 import { WebSocketService } from './web-socket.service';
 import { UserService } from './services/user.service';
 
-
 /**
  * Interface de conversa
  */
@@ -14,6 +13,7 @@ export interface Conversation {
   message: string;
   color: string;
   hour?: string;
+  attention?: string;
 }
 
 @Component({
@@ -48,6 +48,11 @@ export class AppComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject();
 
   /**
+   * Chamar atenção do usuário
+   */
+  public drawAttention$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
    * Construtor
    *
    * @param { WebSocketService } ws - Websocket service
@@ -61,6 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.getPreviousMessages();
     this.listenToNewMessages();
     this.typingHandler();
+    this.onAttentionIsCalled();
   }
 
   /**
@@ -69,6 +75,27 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  /**
+   * Evento quando o chamar atenção é disparado
+   */
+  private onAttentionIsCalled(): void {
+    this.ws
+      .listen('attention')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((conversation: Conversation) => {
+        if (conversation['name'] !== this.user.getUser().name) {
+          this.drawAttention$.next(true);
+          this.conversations.push({
+            ...conversation,
+            message: `Ô, ${this.user.getUser().name} ${conversation.message}`,
+          });
+          setTimeout(() => {
+            this.drawAttention$.next(false);
+          }, 400);
+        }
+      });
   }
 
   /**
@@ -111,7 +138,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .listen('isTyping')
       .pipe(takeUntil(this.destroy$))
       .subscribe(({ author }) => {
-        if (author !==  this.user.getUser().name) {
+        if (author !== this.user.getUser().name) {
           this.typing.next(`${author} está digitando...`);
         }
       });
@@ -119,7 +146,9 @@ export class AppComponent implements OnInit, OnDestroy {
       .listen('stopTyping')
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        this.typing.next('');
+        setTimeout(() => {
+          this.typing.next('');
+        }, 500);
       });
   }
 
@@ -156,9 +185,9 @@ export class AppComponent implements OnInit, OnDestroy {
     const [hour] = regex.exec(now.toISOString().split('T')[1]);
 
     const conversa: Conversation = {
-      name:  this.user.getUser().name,
+      name: this.user.getUser().name,
       message: this.message.value,
-      color:  this.user.getUser().color,
+      color: this.user.getUser().color,
       hour,
     };
 

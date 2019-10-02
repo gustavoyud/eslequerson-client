@@ -4,6 +4,7 @@
   <div
     *ngFor="let conversation of conversations"
     class="conversation"
+    [class.attention]="conversation?.attention"
   >
 
     <!-- Nome/Imagem -->
@@ -27,7 +28,7 @@
       </div>
       <!-- ! Nome e Hora -->
 
-      <h6>
+      <h6 >
         {{ conversation.message }}
       </h6>
     </div>

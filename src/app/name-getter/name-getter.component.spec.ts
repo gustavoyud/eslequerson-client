@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NameGetterComponent } from './name-getter.component';
 
 describe('NameGetterComponent', () => {
@@ -8,9 +7,8 @@ describe('NameGetterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NameGetterComponent ]
-    })
-    .compileComponents();
+      declarations: [NameGetterComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

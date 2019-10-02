@@ -11,7 +11,6 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-
   /**
    * Se o usuário já enviou alguma mensagem
    */
@@ -22,10 +21,19 @@ export class SidebarComponent implements OnInit {
    */
   @Output() suffleColor = new EventEmitter();
 
+  /**
+   * Atual nome que será mostrado no status
+   */
   public statuName = '';
 
+  /**
+   * Configuração do status
+   */
   public displayConfig = false;
 
+  /**
+   * Status do usuário
+   */
   public status: 'on' | 'off' = 'off';
 
   /**
@@ -47,5 +55,23 @@ export class SidebarComponent implements OnInit {
    */
   public changeStatus(visible: any): void {
     this.ws.emit('statusChanged', { author: this.statuName, visible });
+  }
+
+  /**
+   * Chama a atenção do usuário
+   */
+  public drawAttention(): void {
+    const regex: RegExp = /[0-9]{2}:[0-9]{2}/;
+    const now: Date = new Date();
+    const [hour] = regex.exec(now.toISOString().split('T')[1]);
+
+    const attention = {
+      name: this.user.getUser().name,
+      color: this.user.getUser().color,
+      message: 'presta atenção!',
+      hour,
+      attention: true
+    };
+    this.ws.emit('drawAttention', attention);
   }
 }
