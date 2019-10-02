@@ -1,52 +1,91 @@
-@import url("https://fonts.googleapis.com/css?family=Mansalva&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Mansalva&display=swap');
+
+.flex-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 
 .sidebar {
   width: 220px;
   background: #4b154c;
   display: flex;
-  align-items: center;
   flex-direction: column;
   height: 100vh;
 
-  .name {
+  .header {
     display: flex;
     align-items: center;
+    transition: all 0.2s;
+    cursor: pointer;
+    padding: 8px 16px;
+
+    &:hover {
+      background: #7e2480;
+    }
+
+    img {
+      height: 40px;
+      width: 40px;
+      transform: rotate(48deg);
+    }
+
+    h2 {
+      color: #fff;
+      font-weight: 600;
+      font-family: inherit;
+      font-size: 20px;
+      margin: 0px 0px 0px 10px;
+    }
+  }
+
+  .name {
+    display: flex;
     flex-direction: column;
+    padding: 8px 16px;
+    background: transparent;
+    cursor: pointer;
+    transition: all .2s;
+
+    &:hover {
+      background: #7e2480;
+    }
+
+    &.opened {
+      background: #fff;
+      border-radius: 8px;
+      margin: 5px;
+      box-shadow: 0px 2px 7px 1px #7E2480;
+
+      h3 {
+        color: #000;
+      }
+    }
 
     .image {
-      width: 120px;
-      height: 120px;
+      width: 40px;
+      height: 40px;
       border-radius: 4px;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 60px;
+      font-size: 20px;
       color: #fff;
       text-transform: capitalize;
     }
 
-    input {
-      color: #ecb22e;
-      border: none;
-      background: transparent;
-      outline: none !important;
-      margin: 20px 0px;
+    h3 {
+      color: #FFF;
+      margin: 20px 0px 20px 10px;
       text-align: center;
-      font-family: "Mansalva", cursive;
       font-size: 22px;
-
-      &::placeholder {
-        color: #ecb22e;
-      }
+      font-weight: 400;
     }
   }
 
   h2 {
-    color: #fff;
-    font-family: "Mansalva", cursive;
-    b {
-      color: #ecb22e;
-    }
+    color: #000;
+    font-family: 'Mansalva', cursive;
   }
 
   .preview {
@@ -65,4 +104,10 @@
       cursor: pointer;
     }
   }
+}
+
+select {
+  border: none;
+  color: #ecb22e;
+  background: #4b154c;
 }

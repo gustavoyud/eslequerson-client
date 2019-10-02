@@ -1,12 +1,10 @@
-<div class="display">
+<app-name-getter *ngIf="!(user.userHasChanged() | async).name"></app-name-getter>
 
-  <app-sidebar
-    [name]="name"
-    [color]="color"
-    [hasSended]="hasSended"
-    (suffleColor)="getColor()"
-    (nameHasChanged)="name = $event"
-  >
+<div
+  *ngIf="(user.userHasChanged() | async).name"
+  class="display">
+
+  <app-sidebar [hasSended]="hasSended">
   </app-sidebar>
 
   <div [class]="'container'">
@@ -19,6 +17,8 @@
 
     <app-conversations [conversations]="conversations">
     </app-conversations>
+
+    <app-user-connected></app-user-connected>
 
     <h4 *ngIf="(typing.asObservable() | async)">
       {{ (typing.asObservable() | async) ? (typing.asObservable() | async) : 'Não está mais! 😀' }}
