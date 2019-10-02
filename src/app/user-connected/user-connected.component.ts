@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { WebSocketService } from '../web-socket.service';
 import { UserService } from '../services/user.service';
+import { WebSocketService } from '../web-socket.service';
 
 @Component({
   selector: 'app-user-connected',
@@ -9,14 +9,22 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./user-connected.component.scss'],
 })
 export class UserConnectedComponent implements OnInit {
-
   /**
    * Controla a lista de usuários que ficaram ativos recentemente
    */
   public visibleList = new BehaviorSubject<any[]>([]);
 
+  /**
+   * Construtor
+   *
+   * @param { WebSocketService } ws - Serviço de websocket
+   * @param { UserService } user - Singleton do usuário
+   */
   constructor(private ws: WebSocketService, private user: UserService) {}
 
+  /**
+   * Inicializador
+   */
   ngOnInit() {
     this.listenToStatusChanged();
   }
@@ -36,10 +44,14 @@ export class UserConnectedComponent implements OnInit {
     });
   }
 
+  /**
+   * Remove a notificação selecionada da lista
+   *
+   * @param index - index da notificação selecionada
+   */
   public remove(index: number): void {
     const list = this.visibleList.value;
     list.splice(index, 1);
-
     this.visibleList.next(list);
   }
 }

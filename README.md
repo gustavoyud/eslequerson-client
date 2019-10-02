@@ -1,27 +1,14 @@
-# Socketio
+# Eslequerson
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
+> "O melhor do Brasil é o brasileiro!" - Alguém, Algum ano
 
-## Development server
+Projeto do melhor comunicador instantâneo do Brasil (SQN), apresento-vos o eslequerson. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Eslequerson é um ~~plágio descarado do **slack**~~ comunicador original, sem igual, inspirado no que existia de melhor nos anos 2000, nosso queridíssimo MSN.
 
-## Code scaffolding
+Contém *features* maravilhosas como: **Chamar Atenção** e **Mostrar quem ficou online**
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Ainda faltam coisas, testes, mas com o tempo talvez eu acrescente elas. 🤷‍♂
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Pra quem gosta de coisas técnicas:
+Eslequerson é um projeto de teste da tecnologia de `webSocket` utilizando `socket.io`, tomando como base o **slack** e o imortal **MSN**.
